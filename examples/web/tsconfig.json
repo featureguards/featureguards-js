@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "public/dist",
+    "sourceMap": true,
+    "jsx": "react",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

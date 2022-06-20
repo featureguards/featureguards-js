@@ -1,0 +1,15 @@
+{
+  "name": "featureguards-node-example",
+  "version": "0.1.0",
+  "description": "FeatureGuards NodeJS example",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "npx tsnd --respawn ./src/index.ts"
+  },
+  "dependencies": {
+    "featureguards-node": "workspace:*"
+  }
+}

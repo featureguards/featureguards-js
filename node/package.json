@@ -1,7 +1,7 @@
 {
-  "name": "featureguards-web",
+  "name": "featureguards-node",
   "version": "0.2.0",
-  "description": "Official Web SDK for FeatureGuards",
+  "description": "Official NodeJS SDK for FeatureGuards",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": "git@github.com:featureguards/featureguards-js.git",
@@ -9,20 +9,28 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "dev": "npx nodemon ./src/index.ts"
+    "test": "jest --detectOpenHandles --forceExit",
+    "dev": "npx tsnd --respawn ./src/index.ts"
   },
   "devDependencies": {
-    "typescript": "^4.7.3"
-  },
-  "dependencies": {
-    "@protobuf-ts/grpcweb-transport": "^2.6.0",
-    "featureguards-lib": "workspace:*",
-    "grpc-web": "^1.3.1"
+    "@types/jest": "^28.1.2",
+    "dotenv": "^16.0.1",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
   },
   "files": [
     "package.json",
     "dist/**/*"
   ],
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.7",
+    "@protobuf-ts/grpc-transport": "^2.6.0",
+    "featureguards-lib": "workspace:*"
+  },
   "bugs": {
     "url": "https://github.com/featureguards/featureguards-js/issues"
   },

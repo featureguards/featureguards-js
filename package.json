@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "workspaces": [
+    "node",
+    "web",
+    "shared",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "concurrently --kill-others-on-fail \"yarn build:shared\" \"yarn build:node\" \"yarn build:web\" \"yarn build:web-example\" \"yarn build:node-example\"",
+    "build:shared": "yarn workspace featureguards-lib build",
+    "build:web": "yarn workspace featureguards-web build",
+    "build:node": "yarn workspace featureguards-node build",
+    "build:web-example": "yarn workspace featureguards-web-example build",
+    "build:node-example": "yarn workspace featureguards-node-example build",
+    "dev:node": "yarn workspace featureguards-node dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn dev:node\""
+  },
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  },
+  "packageManager": "yarn@3.2.1"
+}
