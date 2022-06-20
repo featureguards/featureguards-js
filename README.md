@@ -13,10 +13,6 @@ written in server-side JavaScript.
 
 For using FeatureGuards in the browser, use [featureguards-web][featureguards-web].
 
-## Documentation
-
-<!-- See the [`featureguards-node` API docs](https://stripe.com/docs/api?lang=node) for Node.js. -->
-
 ## Requirements
 
 Node 8, 10 or higher.
@@ -131,10 +127,6 @@ applications running in the browser with Typescript/JavaScript.
 
 For using FeatureGuards in NodeJS, use [featureguards-node][featureguards-node].
 
-## Documentation
-
-<!-- See the [`featureguards-node` API docs](https://stripe.com/docs/api?lang=node) for Node.js. -->
-
 ## Installation
 
 Install the package with:
@@ -189,9 +181,6 @@ featureGuards.isOn('MY_FEATURE')
 ### Usage with TypeScript
 
 FeatureGuards maintains types for the latest [API version][node-api-versions].
-
-Import Stripe as a default import (not `* as Stripe`, unlike the DefinitelyTyped version) and
-instantiate it as `new Stripe()` with the latest API version.
 
 ```ts
 import featureguards from 'featureguards-web;
