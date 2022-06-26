@@ -50,7 +50,7 @@ export class FeatureTogglesClient implements Client {
       return await this.authenticate();
     }
     try {
-      return await this.refresh(r);
+      return await this.refresh(r as RefreshParams);
     } catch (err) {
       const error = err as ServiceError;
       if (error.code === status.PERMISSION_DENIED) {

@@ -1,5 +1,4 @@
 import {
-  AuthParams,
   Client,
   FeatureToggleError,
   FetchParams,
@@ -17,34 +16,34 @@ import { RpcError, StatusCode } from 'grpc-web';
 
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
 
+import { VERSION } from './constants';
 import { NiceMD } from './metadata';
 
-export type AuthCallback = () => Promise<AuthParams>;
-export type ClientOptions = {
-  authCallback: AuthCallback;
+type ClientOptions = {
+  apiKey: string;
   domain?: string;
 };
 
 export class FeatureTogglesClient implements Client {
   auth: pb_auth_client.AuthClient;
   toggles: pb_toggles_client.TogglesClient;
-  authCallback: AuthCallback;
+  apiKey: string;
 
-  constructor({ domain, authCallback }: ClientOptions) {
+  constructor({ domain, apiKey }: ClientOptions) {
     if (!domain) {
       domain = 'https://api.featureguards.com';
     }
     const transport = new GrpcWebFetchTransport({ baseUrl: domain });
     this.auth = new pb_auth_client.AuthClient(transport);
     this.toggles = new pb_toggles_client.TogglesClient(transport);
-    this.authCallback = authCallback;
+    this.apiKey = apiKey;
   }
   refreshAndAuth = async (r: RefreshAndAuthParams) => {
     if (!r.token) {
       return await this.authenticate();
     }
     try {
-      return await this.refresh(r);
+      return await this.refresh(r as RefreshParams);
     } catch (err) {
       if (err instanceof RpcError && err.code === StatusCode.PERMISSION_DENIED) {
         return await this.authenticate();
@@ -53,15 +52,16 @@ export class FeatureTogglesClient implements Client {
     }
   };
   authenticate = async () => {
-    return await this.authCallback();
+    return await this.auth.authenticate(
+      { version: VERSION },
+      new NiceMD().withApiKey(this.apiKey).md
+    ).response;
   };
   refresh = async (p: RefreshParams) => {
-    const deadline = new Date();
     const r = pb_auth.RefreshRequest.create({ refreshToken: p.token });
     return await this.auth.refresh(r, { timeout: 1000 }).response;
   };
   fetch = async (p: FetchParams) => {
-    const deadline = new Date();
     const r = pb_toggles.FetchRequest.create({
       platform: pb_feature_toggle.Platform_Type.WEB,
       version: p.version

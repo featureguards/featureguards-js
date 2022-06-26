@@ -1,6 +1,6 @@
 import { featureToggles, utils } from 'featureguards-lib';
 
-import { AuthCallback, FeatureTogglesClient } from './client';
+import { FeatureTogglesClient } from './client';
 
 // Default sets the default values for each feature toggle.
 export type Defaults = { [index: string]: boolean };
@@ -14,13 +14,11 @@ export interface IFeatureGuards {
 
 // Options provides various options.
 export type Options = {
+  // apiKey is the API key used for authentication. Please, use API keys generated for the browser.
+  // Otherwise, you may expose server-side feature toggles to the browser.
+  apiKey: string;
   // defaults are default values for feature toggles.
   defaults?: Defaults;
-  // authCallback is the callback to be called for the initial authentication. It's needed because
-  // we don't want to leave API keys to javascript. So, the browser needs to authenticate with the
-  // server. The server internally calls featureguards.com with its secret API key and return the
-  // response. The javascript client will use the response to authenticate with featureguards.com.
-  authCallback: AuthCallback;
   // addr is the address of the FeatureGuards server. Most for testing purposes.
   addr?: string;
 };
@@ -52,12 +50,8 @@ export class FeatureGuards {
   }
 }
 
-export const initialize = async ({
-  defaults,
-  authCallback,
-  addr
-}: Options): Promise<IFeatureGuards> => {
-  const client = new FeatureTogglesClient({ authCallback, domain: addr });
+export const initialize = async ({ defaults, apiKey, addr }: Options): Promise<IFeatureGuards> => {
+  const client = new FeatureTogglesClient({ apiKey, domain: addr });
   const evaluator = new featureToggles.FeatureTogglesEvaluator({ client });
   let started = false;
   try {

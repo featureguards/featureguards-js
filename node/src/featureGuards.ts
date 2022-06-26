@@ -26,8 +26,6 @@ type FeatureGuardsOptions = {
 export interface IFeatureGuards {
   // isOn returns whether the feature is on or off based on the attributes passed in.
   isOn(name: string, options?: featureToggles.FeatureToggleOptions): Promise<boolean>;
-  // authenticateForWeb is needed to use FeatureGuards in the browser.
-  authenticateForWeb(): Promise<AuthParams>;
   // stop, stops the internal client.
   stop(): Promise<void>;
 }
@@ -48,10 +46,6 @@ export class FeatureGuards {
       console.log(err);
       return this.defaults?.[name] ?? false;
     }
-  }
-
-  async authenticateForWeb(): Promise<AuthParams> {
-    return await this.toggles.client.authenticate();
   }
 
   async stop(): Promise<void> {

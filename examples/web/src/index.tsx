@@ -22,14 +22,7 @@ export const Demo: FC = () => {
 
   const init = async () => {
     const fg = await featureguards({
-      authCallback: async () => {
-        // Insert your code here to call your server endpoint, which calls
-        // 'authenticate' in FeatureGuards SDK and return accessToken/refreshToken
-        return {
-          accessToken: 'foo',
-          refreshToken: 'bar'
-        };
-      }
+      apiKey: 'MY_API_KEY'
     });
     setFeatureGuards(fg);
   };

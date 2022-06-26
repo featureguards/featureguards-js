@@ -66,12 +66,12 @@ Import featureguards as a default import passing it the API key and use it.
 
 ```ts
 import featureguards from 'featureguards-node';
+
 const featureGuards = await featureguards({
   apiKey: 'MY API KEY'
-})(async () => {
-  const isOn = await featureguards.isOn('MY_FEATURE_GUARD');
-  console.log(isOn);
-})();
+});
+const isOn = await featureguards.isOn('MY_FEATURE_GUARD');
+console.log(isOn);
 ```
 
 You can find a full TS server example in
@@ -139,10 +139,10 @@ yarn add featureguards-web
 
 ## Usage
 
-Since this library runs in the browser and we don't want to expose the API key in the browser, you
-need to provide a callback the library uses that authenticates with your server and returns the
-response of your server calling FeatureGuards `authenticate` method exposed by the server-side
-FeatureGuard SDKs.
+Since this library runs in the browser and we want to limit the APIs to expose browser related
+feature toggles only. Therefore, you need to use the API key used for the browser for
+authentication. _NEVER_ use server-side API keys since they can be used to retrieve feature toggles
+used on the server.
 
 ### Usage with ES modules and `async`/`await`:
 
@@ -150,12 +150,7 @@ FeatureGuard SDKs.
 import featureguards from 'featureguards-web';
 
 const featureGuards = await featureguards({
-  authCallback: async () => {
-    // Call your server endpoint that internally calls FeatureGuards
-    // authenticate and returns {accessToken: 'string', refreshToken: 'string'} after it authenticated the user.
-    const { accessToken, refreshToken } = await server.authFeatureGuards();
-    return { accessToken, refreshToken };
-  }
+  apiKey: 'MY_API_KEY'
 });
 
 const isOn = await featureguards.isOn('MY_FEATURE_GUARD');
@@ -185,12 +180,7 @@ FeatureGuards maintains types for the latest [API version][node-api-versions].
 ```ts
 import featureguards from 'featureguards-web;
 const featureGuards = await featureguards({
-  authCallback: async () => {
-    // Call your server endpoint that internally calls FeatureGuards
-    // authenticate and returns {accessToken: 'string', refreshToken: 'string'} after it authenticated the user.
-    const { accessToken, refreshToken } = await server.authFeatureGuards();
-    return { accessToken, refreshToken };
-  }
+  apiKey: 'MY_API_KEY'
 })
 ```
 
@@ -230,10 +220,9 @@ const featureGuards = await featureguards({
   defaults: {
     MY_FEATURE_GUARD: true
   }
-})(async () => {
-  const isOn = await featureguards.isOn('MY_FEATURE_GUARD');
-  console.log(isOn);
-})();
+});
+const isOn = await featureguards.isOn('MY_FEATURE_GUARD');
+console.log(isOn);
 ```
 
 # Development

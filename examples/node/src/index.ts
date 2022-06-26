@@ -13,12 +13,6 @@ const example = async () => {
   } else {
     // TEST_FEATURE is off
   }
-
-  // Example for delegating auth with FeatureGuards for the browser.
-  // See docs for more inforatmion.
-  const res = await fg.authenticateForWeb();
-  console.log(res.accessToken);
-  console.log(res.refreshToken);
 };
 
 example();
