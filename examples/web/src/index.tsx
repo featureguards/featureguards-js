@@ -76,7 +76,7 @@ export const Demo: FC = () => {
           />
           <FormHelperText id="feature-text">Feature guard name.</FormHelperText>
         </FormControl>
-        <FormControlLabel disabled control={<Switch />} label="On/Off" checked={on} />
+        <FormControlLabel disabled control={<Switch />} label="On" checked={on} />
         <Button onClick={handleClick} variant="contained" sx={{ maxHeight: 30, ml: 5 }}>
           Check
         </Button>
