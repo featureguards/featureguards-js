@@ -63,7 +63,7 @@ export class FeatureTogglesClient implements Client {
   authenticate = async (): Promise<AuthParams> => {
     const r = pb_auth.AuthenticateRequest.create({ version: VERSION });
     const md = new NiceMD().withApiKey(this.apiKey).md;
-    return await this.auth.authenticate(r, { meta: md }).response;
+    return await this.auth.authenticate(r, { meta: md, timeout: 1000 }).response;
   };
   refresh = async (p: RefreshParams) => {
     const r = pb_auth.RefreshRequest.create({ refreshToken: p.token });

@@ -16,3 +16,4 @@ export type { Attributes } from './attributes';
 export { FeatureToggleError } from './evaluate';
 export * as featureToggles from './featureToggles';
 export * as utils from './utils';
+export * as constants from './constants';

@@ -54,7 +54,7 @@ export class FeatureTogglesClient implements Client {
   authenticate = async () => {
     return await this.auth.authenticate(
       { version: VERSION },
-      new NiceMD().withApiKey(this.apiKey).md
+      { timeout: 1000, meta: new NiceMD().withApiKey(this.apiKey).md }
     ).response;
   };
   refresh = async (p: RefreshParams) => {

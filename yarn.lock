@@ -1525,6 +1525,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.0.3":
+  version: 18.0.3
+  resolution: "@types/node@npm:18.0.3"
+  checksum: 5dec59fbbc1186c808b53df1ca717dad034dbd6a901c75f5b052c845618b531b05f27217122c6254db99529a68618e4cfc534ae3dbf4e88754e9e572df80defa
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
@@ -3422,8 +3429,10 @@ __metadata:
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
     "@mui/material": ^5.8.4
+    "@types/node": ^18.0.3
     "@types/react": ^18.0.14
     "@types/react-dom": ^18.0.5
+    dotenv: ^16.0.1
     featureguards-web: "workspace:*"
     react: ^18.2.0
     react-dom: ^18.2.0

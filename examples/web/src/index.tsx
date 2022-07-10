@@ -15,6 +15,8 @@ import {
   Typography
 } from '@mui/material';
 
+declare var FEATUREGUARDS_API_KEY: string;
+
 export const Demo: FC = () => {
   const [featureGuards, setFeatureGuards] = useState<IFeatureGuards>();
   const [featureName, setFeatureName] = useState<string>('');
@@ -22,7 +24,7 @@ export const Demo: FC = () => {
 
   const init = async () => {
     const fg = await featureguards({
-      apiKey: 'MY_API_KEY'
+      apiKey: FEATUREGUARDS_API_KEY
     });
     setFeatureGuards(fg);
   };

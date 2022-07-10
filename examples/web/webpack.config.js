@@ -1,4 +1,7 @@
+const webpack = require('webpack');
 const path = require('path');
+require('dotenv').config();
+
 module.exports = {
   entry: './src/index.tsx',
   mode: 'development',
@@ -14,7 +17,11 @@ module.exports = {
     port: 8000
   },
   devtool: 'source-map',
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      FEATUREGUARDS_API_KEY: JSON.stringify(process.env.FEATUREGUARDS_API_KEY)
+    })
+  ],
   module: {
     rules: [
       {

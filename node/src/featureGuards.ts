@@ -1,4 +1,4 @@
-import { AuthParams, featureToggles, utils } from 'featureguards-lib';
+import { constants, featureToggles, utils } from 'featureguards-lib';
 
 import { credentials } from '@grpc/grpc-js';
 
@@ -70,13 +70,13 @@ export const initialize = async ({
     // We failed. Maybe intermittent. Let's keep retrying.
     setTimeout(async () => {
       let retry = 0;
-      while (!started) {
+      while (!started && retry < constants.MAX_START_RETRIES) {
         try {
           await evaluator.start({});
           return;
         } catch (err) {
           retry++;
-          const waitMs = Math.min(2 ** retry * 100, 10 * 1000);
+          const waitMs = Math.min(2 ** retry * 100, constants.MAX_START_SLEEP_MS);
           await utils.timeout(utils.jitter(waitMs));
         }
       }
